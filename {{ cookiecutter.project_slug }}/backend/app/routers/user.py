@@ -9,7 +9,7 @@ from app.core.enums import AccessLevel
 
 router = APIRouter()
 
-@router.post("", response_model=schemas.User,)
+@router.post("", response_model=schemas.User)
 def create_user(*,
         db: Session = Depends(get_db),
         current_user: models.User = Depends(get_current_active_user),

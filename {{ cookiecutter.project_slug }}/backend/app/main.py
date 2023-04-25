@@ -2,13 +2,17 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.db import models
-from app.db.session import engine
+from app.db.init_db import init_db
+from app.db.session import engine, SessionLocal
 from app.routers import login, root, user
 from app.routers.dependencies import get_current_active_user
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+db = SessionLocal()
+init_db(db)
 
 app.add_middleware(
     CORSMiddleware,
